@@ -2,7 +2,7 @@ import * as React from "react"
 import "./App.css"
 
 import logo from "./logo.svg"
-import GifSearch from "./components/GifSearch"
+import GifSearch from "components/GifSearch"
 
 class App extends React.Component {
   render() {
