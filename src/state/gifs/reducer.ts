@@ -1,24 +1,17 @@
 import { Gif } from "types/gif"
-import {
-  GifsAction,
-  SEARCH_GIFS,
-  FETCH_GIFS,
-  REQUEST_PAGE,
-  SET_GIFS,
-  ERROR_GIFS
-} from "./actions"
+import { GifsAction, FETCH_GIFS, SET_GIFS, ERROR_GIFS } from "./actions"
 
-type GifsState = {
+export type GifsState = {
   readonly data: Gif[]
-  searchTerm: string
-  limit: number
-  total: number
-  page: number
-  fetching: boolean
-  error?: string | null
+  readonly searchTerm: string
+  readonly limit: number
+  readonly total: number
+  readonly page: number
+  readonly fetching: boolean
+  readonly error?: string | null
 }
 
-const initialState: GifsState = {
+export const initialState: GifsState = {
   data: [],
   total: 0,
   searchTerm: "",
@@ -32,14 +25,10 @@ const gifsReducer = (
   action: GifsAction
 ): GifsState => {
   switch (action.type) {
-    case SEARCH_GIFS:
-      return { ...state, page: 1, searchTerm: action.searchTerm }
-
-    case REQUEST_PAGE:
-      return { ...state, page: action.page }
-
-    case FETCH_GIFS:
-      return { ...state, fetching: true, error: null }
+    case FETCH_GIFS: {
+      const { searchTerm, page } = action
+      return { ...state, searchTerm, page, fetching: true, error: null }
+    }
 
     case SET_GIFS: {
       const { data, total } = action
@@ -52,6 +41,7 @@ const gifsReducer = (
         total
       }
     }
+
     case ERROR_GIFS:
       return { ...state, fetching: false, error: action.error }
 
@@ -61,4 +51,3 @@ const gifsReducer = (
 }
 
 export default gifsReducer
-export { initialState, GifsState }
