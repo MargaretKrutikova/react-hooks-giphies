@@ -1,59 +1,44 @@
 import * as React from "react"
-import { useReducer } from "react"
-import { Gif } from "types/gif"
+import { useContext, useCallback } from "react"
 
-import gifsReducer, { initialState, GifsState } from "./reducer"
-import actions, { GifsAction } from "./actions"
-import { useSearchInputDebounceEffect, useUpdateGifsEffect } from "./effects"
+import { gifsSelectors, gifsEffects } from "state/gifs"
+import { DispatchContext, StateContext } from "App"
 
-const hasMorePages = (state: GifsState) => {
-  const { data, page, limit, total } = state
-  return limit * page + data.length < total
-}
+import GifSearch, { GifSearchProps } from "./GifSearch"
 
-const GiphySearch: React.SFC<{}> = () => {
-  const [gifsState, dispatch] = useReducer<GifsState, GifsAction>(
-    gifsReducer,
-    initialState
+const GiphySearchContainer: React.FunctionComponent<{}> = () => {
+  const dispatch = useContext(DispatchContext)!
+  const gifsState = useContext(StateContext)
+
+  // map dispatch to props
+  const searchGifs = useCallback(
+    (search: string) => {
+      gifsEffects.searchGifs(gifsState, dispatch, search)
+    },
+    [gifsState]
   )
 
-  const [searchValue, handleChange] = useSearchInputDebounceEffect(dispatch)
-  useUpdateGifsEffect(gifsState, dispatch)
-
-  const goToPage = (page: number) => dispatch(actions.requestPage(page))
-
-  const disabledLastPage = !hasMorePages(gifsState)
-  const { data, page: currentPage, error, fetching } = gifsState
-
-  return (
-    <div>
-      <input type="text" value={searchValue} onChange={handleChange} />
-
-      {fetching && <div>Loading...</div>}
-      {error && <div>Oooops... An error has occured!</div>}
-
-      <div>
-        {data.map((gif: Gif) => (
-          <div key={gif.slug}>
-            <img src={gif.images.downsized_medium.url} />
-          </div>
-        ))}
-      </div>
-
-      <button
-        disabled={currentPage === 1}
-        onClick={() => goToPage(currentPage - 1)}
-      >
-        Previous
-      </button>
-      <button
-        disabled={disabledLastPage}
-        onClick={() => goToPage(currentPage + 1)}
-      >
-        Next
-      </button>
-    </div>
+  const goToPage = useCallback(
+    (page: number) => gifsEffects.goToPage(gifsState, dispatch, page),
+    [gifsState]
   )
+
+  // map state to props
+  const hasMorePages = gifsSelectors.getHasMorePages(gifsState)
+
+  const { page: currentPage, fetching, error, data: gifs } = gifsState
+  const props: GifSearchProps = {
+    gifs,
+    error,
+    currentPage,
+    fetching,
+    hasMorePages,
+    searchGifs,
+    goToPage
+  }
+
+  const inputs = Object.keys(props).map(key => props[key])
+  return React.useMemo(() => <GifSearch {...props} />, inputs)
 }
 
-export default GiphySearch
+export default GiphySearchContainer
