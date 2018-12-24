@@ -1,4 +1,6 @@
 import * as React from "react"
+import styled from "@emotion/styled"
+
 import "./App.css"
 import { useReducer } from "react"
 import logo from "./logo.svg"
@@ -11,6 +13,11 @@ const DispatchContext = React.createContext<AppDispatch>(null)
 type AppState = GifsState
 const StateContext = React.createContext<AppState>(initialState)
 
+const Main = styled.main({
+  maxWidth: 1440,
+  margin: "0 auto"
+})
+
 const App: React.FunctionComponent<{}> = () => {
   const [gifsState, dispatch] = useReducer<GifsState, GifsAction>(
     gifsReducer,
@@ -22,12 +29,12 @@ const App: React.FunctionComponent<{}> = () => {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
+            <h1 className="App-title">Welcome to Gif finder</h1>
           </header>
-          <p className="App-intro">
-            To get started, edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <GifSearch />
+
+          <Main>
+            <GifSearch />
+          </Main>
         </div>
       </StateContext.Provider>
     </DispatchContext.Provider>

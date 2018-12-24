@@ -11,6 +11,31 @@ type DownsizedImage = {
   width: string
 }
 
+type OriginalImage = {
+  url: string
+  width: string
+  height: string
+  size: string
+  frames: string
+  mp4: string
+  mp4_size: string
+  webp: string
+  webp_size: string
+}
+
+type OriginalMp4 = {
+  width: string
+  height: string
+  mp4: string
+  mp4_size: string
+}
+
+type Still480w = {
+  url: string
+  width: string
+  height: string
+}
+
 type Gif = {
   rating: string
   slug: string
@@ -22,8 +47,11 @@ type Gif = {
   url: string
   embed_url: string
   images: {
+    original: OriginalImage
     downsized_medium: DownsizedImage
     downsized_large: DownsizedImage
+    original_mp4: OriginalMp4
+    "480w_still": Still480w
   }
 }
 

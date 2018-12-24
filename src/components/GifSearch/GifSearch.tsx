@@ -1,13 +1,15 @@
 import * as React from "react"
-import { Gif } from "types/gif"
 
+import { Gif as GifType } from "types/gif"
 import useInputValue from "hooks/useInputValue"
 import useDebounceEffect from "hooks/useDebounceEffect"
 
-const SEARCH_DEBOUNCE = 500
+import GifList from "components/GifList"
+
+const SEARCH_DEBOUNCE = 800
 
 export type GifSearchProps = {
-  gifs: Gif[]
+  gifs: GifType[]
   currentPage: number
   fetching: boolean
   error?: string | null
@@ -43,13 +45,7 @@ const GifSearch: React.FunctionComponent<GifSearchProps> = props => {
       {fetching && <div>Loading...</div>}
       {error && <div>Oooops... An error has occured!</div>}
 
-      <div>
-        {gifs.map((gif: Gif) => (
-          <div key={gif.slug}>
-            <img src={gif.images.downsized_medium.url} />
-          </div>
-        ))}
-      </div>
+      <GifList gifs={gifs} />
 
       <button
         disabled={currentPage === 1}
