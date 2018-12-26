@@ -2,43 +2,40 @@ import * as React from "react"
 import { useContext, useCallback } from "react"
 
 import { gifsSelectors, gifsEffects } from "state/gifs"
-import { DispatchContext, StateContext } from "App"
+import { DispatchContext, StateContext } from "StateProvider"
 
 import GifSearch, { GifSearchProps } from "./GifSearch"
 
-const GiphySearchContainer: React.FunctionComponent<{}> = () => {
+const GifSearchContainer: React.FunctionComponent<{}> = () => {
   const dispatch = useContext(DispatchContext)!
-  const gifsState = useContext(StateContext)
+  const appState = useContext(StateContext)
 
-  // map dispatch to props
   const searchGifs = useCallback(
     (search: string) => {
-      gifsEffects.searchGifs(gifsState, dispatch, search)
+      gifsEffects.searchGifs(appState, dispatch, search)
     },
-    [gifsState]
+    [appState]
   )
 
   const goToPage = useCallback(
-    (page: number) => gifsEffects.goToPage(gifsState, dispatch, page),
-    [gifsState]
+    (page: number) => gifsEffects.goToPage(appState, dispatch, page),
+    [appState]
   )
 
-  // map state to props
-  const hasMorePages = gifsSelectors.getHasMorePages(gifsState)
-
-  const { page: currentPage, fetching, error, data: gifs } = gifsState
   const props: GifSearchProps = {
-    gifs,
-    error,
-    currentPage,
-    fetching,
-    hasMorePages,
+    // map dispatch to props
     searchGifs,
-    goToPage
+    goToPage,
+    // map state to props
+    gifs: gifsSelectors.getGifs(appState),
+    error: gifsSelectors.getError(appState),
+    currentPage: gifsSelectors.getCurrentPage(appState),
+    fetching: gifsSelectors.getIsFetching(appState),
+    hasMorePages: gifsSelectors.getHasMorePages(appState)
   }
 
   const inputs = Object.keys(props).map(key => props[key])
   return React.useMemo(() => <GifSearch {...props} />, inputs)
 }
 
-export default GiphySearchContainer
+export default GifSearchContainer

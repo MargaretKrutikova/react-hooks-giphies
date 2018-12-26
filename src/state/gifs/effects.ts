@@ -1,13 +1,14 @@
 import DataProvider from "api/dataProvider"
+import { AppState, AppAction } from "state"
 
 import actions, { GifsAction } from "./actions"
-import { GifsState } from "./reducer"
+import selectors from "./selectors"
 
 const fetch = async (
   searchTerm: string,
   limit: number,
   page: number,
-  dispatch: React.Dispatch<GifsAction>
+  dispatch: React.Dispatch<AppAction>
 ) => {
   try {
     dispatch(actions.fetchGifs(searchTerm, page))
@@ -26,24 +27,29 @@ const fetch = async (
 }
 
 const goToPage = async (
-  state: GifsState,
-  dispatch: React.Dispatch<GifsAction>,
-  requestedPage: number
+  state: AppState,
+  dispatch: React.Dispatch<AppAction>,
+  page: number
 ) => {
-  const { fetching, limit, page, searchTerm } = state
-  if (requestedPage === page || fetching) {
+  const limit = selectors.getLimit(state)
+  const fetching = selectors.getIsFetching(state)
+  const currentPage = selectors.getCurrentPage(state)
+  const searchTerm = selectors.getSearchTerm(state)
+
+  if (page === currentPage || fetching) {
     return
   }
-
-  await fetch(searchTerm, limit, requestedPage, dispatch)
+  await fetch(searchTerm, limit, page, dispatch)
 }
 
 const searchGifs = async (
-  state: GifsState,
-  dispatch: React.Dispatch<GifsAction>,
+  state: AppState,
+  dispatch: React.Dispatch<AppAction>,
   searchTerm: string
 ) => {
-  const { fetching, limit } = state
+  const limit = selectors.getLimit(state)
+  const fetching = selectors.getIsFetching(state)
+
   if (!searchTerm || fetching) {
     return
   }

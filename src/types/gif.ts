@@ -37,6 +37,7 @@ type Still480w = {
 }
 
 type Gif = {
+  id: string
   rating: string
   slug: string
   source: string
