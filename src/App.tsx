@@ -1,45 +1,30 @@
 import * as React from "react"
 import styled from "@emotion/styled"
 
-import "./App.css"
-import { useReducer } from "react"
-import logo from "./logo.svg"
 import GifSearch from "components/GifSearch"
-import { gifsReducer, GifsAction, initialState, GifsState } from "state/gifs"
+import StateProvider from "StateProvider"
 
-type AppDispatch = React.Dispatch<GifsAction> | null
-const DispatchContext = React.createContext<AppDispatch>(null)
-
-type AppState = GifsState
-const StateContext = React.createContext<AppState>(initialState)
+import "./App.css"
+import logo from "./logo.svg"
 
 const Main = styled.main({
   maxWidth: 1440,
   margin: "0 auto"
 })
 
-const App: React.FunctionComponent<{}> = () => {
-  const [gifsState, dispatch] = useReducer<GifsState, GifsAction>(
-    gifsReducer,
-    initialState
-  )
-  return (
-    <DispatchContext.Provider value={dispatch}>
-      <StateContext.Provider value={gifsState}>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to Gif finder</h1>
-          </header>
+const App: React.FunctionComponent = () => (
+  <StateProvider>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1 className="App-title">Welcome to Gif finder</h1>
+      </header>
 
-          <Main>
-            <GifSearch />
-          </Main>
-        </div>
-      </StateContext.Provider>
-    </DispatchContext.Provider>
-  )
-}
+      <Main>
+        <GifSearch />
+      </Main>
+    </div>
+  </StateProvider>
+)
 
-export { DispatchContext, StateContext }
 export default App

@@ -40,5 +40,5 @@ const setError = (error: string): GifsErrorAction => ({
   error
 })
 
-export default { setGifs, setError, fetchGifs }
 export { SET_GIFS, ERROR_GIFS, FETCH_GIFS }
+export default { setGifs, setError, fetchGifs }
