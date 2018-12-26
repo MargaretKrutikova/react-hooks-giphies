@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useContext, useCallback, useMemo } from "react"
 
-import { userActions, userSelectors } from "state/user"
+import { favoriteGifsActions, favoriteGifsSelectors } from "state/favorites"
 import { DispatchContext, StateContext } from "StateProvider"
 
 import GifCard, { GifCardOwnProps, GifCardContextProps } from "./GifCard"
@@ -12,12 +12,12 @@ const GifCardContainer: React.FunctionComponent<GifCardOwnProps> = props => {
 
   const { id } = props.gif
   const toggleFavorite = useCallback(
-    () => dispatch(userActions.toggleFavoriteGif(id)),
+    () => dispatch(favoriteGifsActions.toggleFavoriteGif(id)),
     [id]
   )
 
   const isFavorite = useMemo(
-    () => userSelectors.getIsFavoriteGif(appState, id),
+    () => favoriteGifsSelectors.getIsFavoriteGif(appState, id),
     [appState, id]
   )
 
