@@ -1,14 +1,15 @@
 import * as React from "react"
-import { useContext, useCallback } from "react"
+import { useCallback } from "react"
 
+import useAppState from "hooks/useAppState"
+import useAppDispatch from "hooks/useAppDispatch"
 import { gifsSelectors, gifsEffects } from "state/gifs"
-import { DispatchContext, StateContext } from "StateProvider"
 
 import GifSearch, { GifSearchProps } from "./GifSearch"
 
 const GifSearchContainer: React.FunctionComponent<{}> = () => {
-  const dispatch = useContext(DispatchContext)!
-  const appState = useContext(StateContext)
+  const dispatch = useAppDispatch()
+  const appState = useAppState()
 
   const searchGifs = useCallback(
     (search: string) => {

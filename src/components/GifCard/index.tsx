@@ -1,14 +1,15 @@
 import * as React from "react"
-import { useContext, useCallback, useMemo } from "react"
+import { useCallback, useMemo } from "react"
 
+import useAppState from "hooks/useAppState"
+import useAppDispatch from "hooks/useAppDispatch"
 import { favoriteGifsActions, favoriteGifsSelectors } from "state/favorites"
-import { DispatchContext, StateContext } from "StateProvider"
 
 import GifCard, { GifCardOwnProps, GifCardContextProps } from "./GifCard"
 
 const GifCardContainer: React.FunctionComponent<GifCardOwnProps> = props => {
-  const dispatch = useContext(DispatchContext)!
-  const appState = useContext(StateContext)
+  const dispatch = useAppDispatch()
+  const appState = useAppState()
 
   const { id } = props.gif
   const toggleFavorite = useCallback(
