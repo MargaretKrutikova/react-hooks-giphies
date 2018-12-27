@@ -3,6 +3,7 @@ import styled from "@emotion/styled"
 
 import { LoadingStatus, hasLoaded, isLoading } from "types/loadingStatus"
 import Spinner from "./Spinner"
+import { omitProps } from "utils/styling"
 
 type Props = {
   height: number
@@ -10,17 +11,17 @@ type Props = {
   loadingStatus: LoadingStatus
 }
 
-const VideoSizeBlock = styled.div<Props>(
-  ({ height, width, loadingStatus }) => ({
-    paddingBottom: `calc(100% * ${height / width})`,
-    width: "100%",
-    position: "relative",
-    display: hasLoaded(loadingStatus) ? "none" : "block",
-    backgroundColor: "#D8D3D0",
-    transition: "opacity 6s ease-out",
-    opacity: isLoading(loadingStatus) ? 1 : 0.2
-  })
-)
+const VideoSizeBlock = styled("div", omitProps<Props>("width", "height"))<
+  Props
+>(({ height, width, loadingStatus }) => ({
+  paddingBottom: `calc(100% * ${height / width})`,
+  width: "100%",
+  position: "relative",
+  display: hasLoaded(loadingStatus) ? "none" : "block",
+  backgroundColor: "#D8D3D0",
+  transition: "opacity 6s ease-out",
+  opacity: isLoading(loadingStatus) ? 1 : 0.2
+}))
 
 const SpinnerContainer = styled.div({
   position: "absolute",

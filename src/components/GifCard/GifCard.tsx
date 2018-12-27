@@ -8,6 +8,7 @@ import { defaultIfNaN } from "utils/number"
 
 import VideoPlaceholder from "../VideoPlaceholder"
 import FavoriteIcon from "../FavoriteIcon"
+import { omitProps } from "utils/styling"
 
 export type GifCardContextProps = {
   toggleFavorite: () => void
@@ -27,7 +28,12 @@ const Video = styled.video<{ status: LoadingStatus }>(({ status }) => ({
   display: hasLoaded(status) ? "block" : "none"
 }))
 
-const VideoContainer = styled.div<{ width: number }>(({ width }) => ({
+type VideoContainerProps = {
+  width: number
+}
+const VideoContainer = styled("div", omitProps<VideoContainerProps>("width"))<
+  VideoContainerProps
+>(({ width }) => ({
   width,
   position: "relative"
 }))
