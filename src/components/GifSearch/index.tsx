@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 
 import useAppState from "hooks/useAppState"
 import useAppDispatch from "hooks/useAppDispatch"
@@ -36,7 +36,7 @@ const GifSearchContainer: React.FunctionComponent<{}> = () => {
   }
 
   const inputs = Object.keys(props).map(key => props[key])
-  return React.useMemo(() => <GifSearch {...props} />, inputs)
+  return useMemo(() => <GifSearch {...props} />, inputs)
 }
 
 export default GifSearchContainer

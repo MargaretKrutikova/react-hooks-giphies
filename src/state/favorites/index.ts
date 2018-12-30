@@ -6,6 +6,7 @@ export {
   initialState as favoriteGifsInitState
 } from "./reducer"
 export { default as favoriteGifsActions } from "./actions"
+export { default as favoriteGifsEffects } from "./effects"
 export { default as favoriteGifsSelectors } from "./selectors"
 
 export type FavoriteGifsState = FavoriteGifsState

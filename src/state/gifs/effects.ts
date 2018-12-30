@@ -1,7 +1,7 @@
 import DataProvider from "api/dataProvider"
 import { AppState, AppAction } from "state"
 
-import actions, { GifsAction } from "./actions"
+import actions from "./actions"
 import selectors from "./selectors"
 
 const fetch = async (

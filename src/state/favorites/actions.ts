@@ -12,7 +12,6 @@ type FavoriteGifToggleAction = {
 
 type FavoriteGifsFetchAction = {
   type: typeof FETCH_FAVORITE_GIFS
-  page: number
 }
 
 type FavoriteGifsSetAction = {
@@ -36,9 +35,8 @@ const toggleFavoriteGif = (gifId: string): FavoriteGifToggleAction => ({
   gifId
 })
 
-const fetchFavoriteGifs = (page: number): FavoriteGifsFetchAction => ({
-  type: FETCH_FAVORITE_GIFS,
-  page
+const fetchFavoriteGifs = (): FavoriteGifsFetchAction => ({
+  type: FETCH_FAVORITE_GIFS
 })
 
 const setFavoriteGifs = (data: Gif[]): FavoriteGifsSetAction => ({

@@ -13,7 +13,8 @@ const List = styled.div({
   display: "inline-flex",
   flexWrap: "wrap",
   justifyContent: "space-evenly",
-  alignItems: "center"
+  alignItems: "center",
+  width: "100%"
 })
 
 const GifListItem = styled(GifCard)({
