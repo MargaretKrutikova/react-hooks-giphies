@@ -8,22 +8,31 @@ import {
   FavoriteGifsState,
   FavoriteGifsAction
 } from "./favorites"
+import {
+  NotificationState,
+  notificationsReducer,
+  notificationsInitState,
+  NotificationAction
+} from "./notifications"
 
 export type AppState = {
   gifs: GifsState
   favorites: FavoriteGifsState
+  notifications: NotificationState
 }
 
-export type AppAction = GifsAction | FavoriteGifsAction
+export type AppAction = GifsAction | FavoriteGifsAction | NotificationAction
 
 export const appInitState: AppState = {
   gifs: gifsInitState,
-  favorites: favoriteGifsInitState
+  favorites: favoriteGifsInitState,
+  notifications: notificationsInitState
 }
 
 const reducersMap: ReducersMap<AppState> = {
   gifs: gifsReducer,
-  favorites: favoriteGifsReducer
+  favorites: favoriteGifsReducer,
+  notifications: notificationsReducer
 }
 
 export default combineReducers(reducersMap)
