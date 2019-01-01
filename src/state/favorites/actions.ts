@@ -1,12 +1,19 @@
 import { Gif } from "types/gif"
 
-const TOGGLE_FAVORITE_GIF = "favorites/TOGGLE_GIF"
+const ADD_TO_FAVORITE = "favorites/ADD_GIF"
+const REMOVE_FROM_FAVORITE = "favorites/REMOVE_GIF"
 const FETCH_FAVORITE_GIFS = "favorites/FETCH_GIFS"
 const SET_FAVORITE_GIFS = "favorites/SET_GIFS"
+const LOAD_FAVORITE_GIF_IDS = "favorites/LOAD_GIF_IDS"
 const ERROR_FAVORITE_GIFS = "favorites/ERROR_GIFS"
 
-type FavoriteGifToggleAction = {
-  type: typeof TOGGLE_FAVORITE_GIF
+type AddGifToFavoriteAction = {
+  type: typeof ADD_TO_FAVORITE
+  gifId: string
+}
+
+type RemoveGifFromFavoriteAction = {
+  type: typeof REMOVE_FROM_FAVORITE
   gifId: string
 }
 
@@ -24,14 +31,26 @@ type FavoriteGifsErrorAction = {
   error: string
 }
 
+type LoadFavoriteGifIds = {
+  type: typeof LOAD_FAVORITE_GIF_IDS
+  ids: string[]
+}
+
 export type FavoriteGifsAction =
-  | FavoriteGifToggleAction
+  | AddGifToFavoriteAction
+  | RemoveGifFromFavoriteAction
   | FavoriteGifsFetchAction
   | FavoriteGifsSetAction
   | FavoriteGifsErrorAction
+  | LoadFavoriteGifIds
 
-const toggleFavoriteGif = (gifId: string): FavoriteGifToggleAction => ({
-  type: TOGGLE_FAVORITE_GIF,
+const addGifToFavorite = (gifId: string): AddGifToFavoriteAction => ({
+  type: ADD_TO_FAVORITE,
+  gifId
+})
+
+const removeGifFromFavorite = (gifId: string): RemoveGifFromFavoriteAction => ({
+  type: REMOVE_FROM_FAVORITE,
   gifId
 })
 
@@ -49,14 +68,23 @@ const setFavoriteGifsError = (error: string): FavoriteGifsErrorAction => ({
   error
 })
 
+const loadFavoriteGifIds = (ids: string[]): LoadFavoriteGifIds => ({
+  type: LOAD_FAVORITE_GIF_IDS,
+  ids
+})
+
 export {
-  TOGGLE_FAVORITE_GIF,
+  ADD_TO_FAVORITE,
+  REMOVE_FROM_FAVORITE,
+  LOAD_FAVORITE_GIF_IDS,
   FETCH_FAVORITE_GIFS,
   SET_FAVORITE_GIFS,
   ERROR_FAVORITE_GIFS
 }
 export default {
-  toggleFavoriteGif,
+  addGifToFavorite,
+  loadFavoriteGifIds,
+  removeGifFromFavorite,
   fetchFavoriteGifs,
   setFavoriteGifs,
   setFavoriteGifsError

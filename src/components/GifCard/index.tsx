@@ -3,7 +3,7 @@ import { useCallback, useMemo } from "react"
 
 import useAppState from "hooks/useAppState"
 import useAppDispatch from "hooks/useAppDispatch"
-import { favoriteGifsActions, favoriteGifsSelectors } from "state/favorites"
+import { favoriteGifsSelectors, favoriteGifsEffects } from "state/favorites"
 
 import GifCard, { GifCardOwnProps, GifCardContextProps } from "./GifCard"
 
@@ -12,14 +12,21 @@ const GifCardContainer: React.FunctionComponent<GifCardOwnProps> = props => {
   const appState = useAppState()
 
   const { id } = props.gif
-  const toggleFavorite = useCallback(
-    () => dispatch(favoriteGifsActions.toggleFavoriteGif(id)),
-    [id]
-  )
 
   const isFavorite = useMemo(
     () => favoriteGifsSelectors.getIsFavoriteGif(appState, id),
     [appState, id]
+  )
+
+  const toggleFavorite = useCallback(
+    () => {
+      if (isFavorite) {
+        favoriteGifsEffects.removeFromFavorites(appState, dispatch, id)
+      } else {
+        favoriteGifsEffects.addToFavorite(appState, dispatch, id)
+      }
+    },
+    [id, isFavorite]
   )
 
   const contextProps: GifCardContextProps = {

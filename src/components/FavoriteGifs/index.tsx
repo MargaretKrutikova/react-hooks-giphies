@@ -11,7 +11,7 @@ const FavoriteGifs: React.FunctionComponent<{}> = () => {
   const appState = useAppState()
 
   useEffect(() => {
-    favoriteGifsEffects.fetch(appState, dispatch)
+    favoriteGifsEffects.fetchFavoriteGifs(appState, dispatch)
   }, [])
 
   const favorites = favoriteGifsSelectors.getFavoriteGifs(appState)

@@ -1,6 +1,8 @@
 import {
   FavoriteGifsAction,
-  TOGGLE_FAVORITE_GIF,
+  ADD_TO_FAVORITE,
+  LOAD_FAVORITE_GIF_IDS,
+  REMOVE_FROM_FAVORITE,
   FETCH_FAVORITE_GIFS,
   SET_FAVORITE_GIFS,
   ERROR_FAVORITE_GIFS
@@ -28,16 +30,17 @@ const favoriteGifsReducer = (
   action: FavoriteGifsAction
 ): FavoriteGifsState => {
   switch (action.type) {
-    case TOGGLE_FAVORITE_GIF: {
-      const { gifIds: ids } = state
-      const isFavorite = ids.indexOf(action.gifId) > -1
+    case ADD_TO_FAVORITE:
+      return {
+        ...state,
+        gifIds: [...state.gifIds, action.gifId]
+      }
 
-      const updatedIds = isFavorite
-        ? ids.filter(gifId => gifId !== action.gifId)
-        : [...ids, action.gifId]
-
-      return { ...state, gifIds: updatedIds }
-    }
+    case REMOVE_FROM_FAVORITE:
+      return {
+        ...state,
+        gifIds: state.gifIds.filter(id => id !== action.gifId)
+      }
 
     case FETCH_FAVORITE_GIFS:
       return { ...state, fetching: true, error: null }
@@ -47,6 +50,9 @@ const favoriteGifsReducer = (
 
     case ERROR_FAVORITE_GIFS:
       return { ...state, fetching: false, error: action.error }
+
+    case LOAD_FAVORITE_GIF_IDS:
+      return { ...state, gifIds: action.ids }
 
     default:
       return state

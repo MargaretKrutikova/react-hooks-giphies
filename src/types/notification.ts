@@ -8,4 +8,19 @@ type NotificationProps = {
   message: string
 }
 
-export { Notification, NotificationProps }
+const createSuccessNotification = (message: string): NotificationProps => ({
+  type: "success",
+  message
+})
+
+const creatErrorNotification = (message: string): NotificationProps => ({
+  type: "error",
+  message
+})
+
+export {
+  Notification,
+  NotificationProps,
+  createSuccessNotification,
+  creatErrorNotification
+}

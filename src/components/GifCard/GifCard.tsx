@@ -51,7 +51,7 @@ const Actions = styled.div({
 
 const ActionButton = styled(IconButton)({
   backgroundColor: "rgba(255, 255, 255, 0.7)",
-  ":hover": {
+  ":hover:enabled": {
     backgroundColor: "rgba(255, 255, 255, 0.8)"
   }
 })

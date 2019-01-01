@@ -8,7 +8,7 @@ import IconButton from "components/IconButton"
 import CloseIcon from "components/icons/CloseIcon"
 
 const TRANSITION_MS = 500
-const AUTO_CLOSE_MS = 3000
+const AUTO_CLOSE_MS = 2000
 
 const NotificationTransition = styled.div<{
   isOpen: boolean
@@ -76,7 +76,7 @@ const Notification: React.FunctionComponent<Props> = ({
   return (
     <NotificationTransition isOpen={isOpen} position={position}>
       {message}
-      <IconButton onClick={() => remove(id)}>
+      <IconButton onClick={() => hide(id)}>
         <NotificationCloseIcon />
       </IconButton>
     </NotificationTransition>
