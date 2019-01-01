@@ -1,7 +1,9 @@
 import * as React from "react"
-import { useReducer } from "react"
+import { useReducer } from "reinspect"
 
 import rootReducer, { AppState, appInitState, AppAction } from "state"
+
+const APP_STATE_INSPECTOR_ID = "appState"
 
 type AppDispatch = React.Dispatch<AppAction> | null
 
@@ -11,7 +13,8 @@ const StateContext = React.createContext<AppState>(appInitState)
 const StateProvider: React.FunctionComponent = ({ children }) => {
   const [appState, dispatch] = useReducer<AppState, AppAction>(
     rootReducer,
-    appInitState
+    appInitState,
+    APP_STATE_INSPECTOR_ID
   )
   return (
     <DispatchContext.Provider value={dispatch}>
@@ -20,5 +23,5 @@ const StateProvider: React.FunctionComponent = ({ children }) => {
   )
 }
 
-export { DispatchContext, StateContext }
+export { DispatchContext, StateContext, APP_STATE_INSPECTOR_ID }
 export default StateProvider
