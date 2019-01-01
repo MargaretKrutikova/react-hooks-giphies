@@ -8,6 +8,7 @@ import GifSearch from "components/GifSearch"
 import FavoriteGifs from "components/FavoriteGifs"
 import "./App.css"
 import logo from "./logo.svg"
+import NotificationsProvider from "components/Notifications"
 
 const Main = styled.main({
   maxWidth: 1440,
@@ -24,12 +25,14 @@ const App: React.FunctionComponent = () => (
         </header>
         <Link to="/">Search</Link>
         <Link to="/favorites">Favorites</Link>
+
         <Main>
           <Switch>
             <Route path="/" exact component={GifSearch} />
             <Route path="/favorites" component={FavoriteGifs} />
           </Switch>
         </Main>
+        <NotificationsProvider />
       </div>
     </BrowserRouter>
   </StateProvider>

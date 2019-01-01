@@ -11,6 +11,9 @@ const IconContainer = styled.button({
   transition: "background-color .2s ease-out",
   ":hover": {
     backgroundColor: "rgba(0, 0, 0, 0.08)"
+  },
+  ":focus": {
+    outline: "none"
   }
 })
 
