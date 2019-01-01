@@ -1,10 +1,12 @@
 import * as React from "react"
+import styled from "@emotion/styled"
 
 import { Gif as GifType } from "types/gif"
 import useInputValue from "hooks/useInputValue"
 import useDebounceEffect from "hooks/useDebounceEffect"
 
 import GifList from "components/GifList"
+import Button from "components/Button"
 
 const SEARCH_DEBOUNCE = 800
 
@@ -17,6 +19,10 @@ export type GifSearchProps = {
   searchGifs: (searchTerm: string) => void
   goToPage: (page: number) => void
 }
+
+const PagingButton = styled(Button)({
+  margin: "0 10px"
+})
 
 const GifSearch: React.FunctionComponent<GifSearchProps> = props => {
   const {
@@ -47,18 +53,18 @@ const GifSearch: React.FunctionComponent<GifSearchProps> = props => {
 
       <GifList gifs={gifs} />
 
-      <button
+      <PagingButton
         disabled={currentPage === 1}
         onClick={() => goToPage(currentPage - 1)}
       >
         Previous
-      </button>
-      <button
+      </PagingButton>
+      <PagingButton
         disabled={!hasMorePages}
         onClick={() => goToPage(currentPage + 1)}
       >
         Next
-      </button>
+      </PagingButton>
     </div>
   )
 }
