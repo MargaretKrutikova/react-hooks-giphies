@@ -7,8 +7,9 @@ import { Gif } from "types/gif"
 import { defaultIfNaN } from "utils/number"
 
 import VideoPlaceholder from "../VideoPlaceholder"
-import FavoriteIcon from "../FavoriteIcon"
+import FavoriteIcon from "../icons/FavoriteIcon"
 import { omitProps } from "utils/styling"
+import IconButton from "components/IconButton"
 
 export type GifCardContextProps = {
   toggleFavorite: () => void
@@ -48,15 +49,10 @@ const Actions = styled.div({
   justifyContent: "flex-end"
 })
 
-const ActionIcon = styled.span({
-  padding: 6,
-  display: "flex",
-  borderRadius: "50%",
-  cursor: "pointer",
-  backgroundColor: "rgba(255, 255, 255, 0.6)",
-  transition: "background-color .2s ease-out",
+const ActionButton = styled(IconButton)({
+  backgroundColor: "rgba(255, 255, 255, 0.7)",
   ":hover": {
-    backgroundColor: "rgba(0, 0, 0, 0.2)"
+    backgroundColor: "rgba(255, 255, 255, 0.8)"
   }
 })
 
@@ -77,9 +73,9 @@ const GifCard: React.FunctionComponent<Props> = ({
   return (
     <VideoContainer width={width} className={className}>
       <Actions>
-        <ActionIcon>
+        <ActionButton>
           <FavoriteIcon isFavorite={isFavorite} onClick={toggleFavorite} />
-        </ActionIcon>
+        </ActionButton>
       </Actions>
 
       <Video
