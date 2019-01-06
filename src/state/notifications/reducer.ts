@@ -1,11 +1,6 @@
-import {
-  QUEUE_NOTIFICATION,
-  REMOVE_NOTIFICATION,
-  SHOW_NOTIFICATION,
-  HIDE_NOTIFICATION,
-  NotificationAction
-} from "./actions"
+import actions, { NotificationAction } from "./actions"
 import { Notification } from "types/notification"
+import { getType } from "typesafe-actions"
 
 export type NotificationState = {
   data: Notification[]
@@ -23,21 +18,21 @@ const reducer = (
   action: NotificationAction
 ): NotificationState => {
   switch (action.type) {
-    case QUEUE_NOTIFICATION: {
-      const data = [...state.data, action.notification]
+    case getType(actions.queue): {
+      const data = [...state.data, action.payload.notification]
       return { ...state, data }
     }
 
-    case REMOVE_NOTIFICATION: {
-      const data = state.data.filter(item => item.id !== action.id)
+    case getType(actions.remove): {
+      const data = state.data.filter(item => item.id !== action.payload.id)
       return { ...state, data }
     }
 
-    case SHOW_NOTIFICATION:
-      return { ...state, data: setIsOpen(state.data, action.id, true) }
+    case getType(actions.show):
+      return { ...state, data: setIsOpen(state.data, action.payload.id, true) }
 
-    case HIDE_NOTIFICATION:
-      return { ...state, data: setIsOpen(state.data, action.id, false) }
+    case getType(actions.hide):
+      return { ...state, data: setIsOpen(state.data, action.payload.id, false) }
 
     default:
       return state

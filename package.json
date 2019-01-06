@@ -8,7 +8,8 @@
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
     "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "^4.0.8"
+    "react-scripts-ts": "^4.0.8",
+    "typesafe-actions": "^3.0.0"
   },
   "resolutions": {
     "@types/react": "^16.7.17"

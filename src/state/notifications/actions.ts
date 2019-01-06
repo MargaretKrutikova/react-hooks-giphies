@@ -1,66 +1,33 @@
-import { Notification, NotificationProps } from "types/notification"
+import { createAction, ActionType } from "typesafe-actions"
+import { NotificationProps } from "types/notification"
 
-const QUEUE_NOTIFICATION = "notifications/QUEUE"
-const REMOVE_NOTIFICATION = "notifications/REMOVE"
+const queue = createAction(
+  "notifications/QUEUE",
+  resolve => (props: NotificationProps) =>
+    resolve({
+      notification: {
+        isOpen: false,
+        id: Math.ceil(Math.random() * 1000000),
+        ...props
+      }
+    })
+)
 
-const SHOW_NOTIFICATION = "notifications/SHOW"
-const HIDE_NOTIFICATION = "notifications/HIDE"
+const remove = createAction(
+  "notifications/REMOVE",
+  resolve => (notificationId: number) => resolve({ id: notificationId })
+)
 
-type QueueNotificationAction = {
-  type: typeof QUEUE_NOTIFICATION
-  notification: Notification
-}
+const show = createAction(
+  "notifications/SHOW",
+  resolve => (notificationId: number) => resolve({ id: notificationId })
+)
+const hide = createAction(
+  "notifications/HIDE",
+  resolve => (notificationId: number) => resolve({ id: notificationId })
+)
 
-type RemoveNotificationAction = {
-  type: typeof REMOVE_NOTIFICATION
-  id: number
-}
+const actions = { queue, remove, show, hide }
 
-type ShowNotificationAction = {
-  type: typeof SHOW_NOTIFICATION
-  id: number
-}
-
-type HideNotificationAction = {
-  type: typeof HIDE_NOTIFICATION
-  id: number
-}
-
-type NotificationAction =
-  | QueueNotificationAction
-  | RemoveNotificationAction
-  | ShowNotificationAction
-  | HideNotificationAction
-
-const queue = (props: NotificationProps): QueueNotificationAction => ({
-  type: QUEUE_NOTIFICATION,
-  notification: {
-    isOpen: false,
-    id: Math.ceil(Math.random() * 1000000),
-    ...props
-  }
-})
-
-const remove = (notificationId: number): RemoveNotificationAction => ({
-  type: REMOVE_NOTIFICATION,
-  id: notificationId
-})
-
-const show = (notificationId: number): ShowNotificationAction => ({
-  type: SHOW_NOTIFICATION,
-  id: notificationId
-})
-
-const hide = (notificationId: number): HideNotificationAction => ({
-  type: HIDE_NOTIFICATION,
-  id: notificationId
-})
-
-export {
-  QUEUE_NOTIFICATION,
-  REMOVE_NOTIFICATION,
-  SHOW_NOTIFICATION,
-  HIDE_NOTIFICATION,
-  NotificationAction
-}
-export default { queue, remove, show, hide }
+export type NotificationAction = ActionType<typeof actions>
+export default actions

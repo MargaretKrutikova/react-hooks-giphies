@@ -1,5 +1,6 @@
+import { getType } from "typesafe-actions"
 import { Gif } from "types/gif"
-import { GifsAction, FETCH_GIFS, SET_GIFS, ERROR_GIFS } from "./actions"
+import actions, { GifsAction } from "./actions"
 
 export type GifsState = {
   readonly data: Gif[]
@@ -25,13 +26,13 @@ const gifsReducer = (
   action: GifsAction
 ): GifsState => {
   switch (action.type) {
-    case FETCH_GIFS: {
-      const { searchTerm, page } = action
+    case getType(actions.fetchGifs): {
+      const { searchTerm, page } = action.payload
       return { ...state, searchTerm, page, fetching: true, error: null }
     }
 
-    case SET_GIFS: {
-      const { data, total } = action
+    case getType(actions.setGifs): {
+      const { data, total } = action.payload
 
       return {
         ...state,
@@ -42,8 +43,8 @@ const gifsReducer = (
       }
     }
 
-    case ERROR_GIFS:
-      return { ...state, fetching: false, error: action.error }
+    case getType(actions.setError):
+      return { ...state, fetching: false, error: action.payload }
 
     default:
       return state

@@ -1,12 +1,6 @@
-import {
-  FavoriteGifsAction,
-  ADD_TO_FAVORITE,
-  LOAD_FAVORITE_GIF_IDS,
-  REMOVE_FROM_FAVORITE,
-  FETCH_FAVORITE_GIFS,
-  SET_FAVORITE_GIFS,
-  ERROR_FAVORITE_GIFS
-} from "./actions"
+import { getType } from "typesafe-actions"
+
+import actions, { FavoriteGifsAction } from "./actions"
 import { Gif } from "types/gif"
 
 export type FavoriteGifsState = {
@@ -30,29 +24,29 @@ const favoriteGifsReducer = (
   action: FavoriteGifsAction
 ): FavoriteGifsState => {
   switch (action.type) {
-    case ADD_TO_FAVORITE:
+    case getType(actions.addGifToFavorite):
       return {
         ...state,
-        gifIds: [...state.gifIds, action.gifId]
+        gifIds: [...state.gifIds, action.payload.gifId]
       }
 
-    case REMOVE_FROM_FAVORITE:
+    case getType(actions.removeGifFromFavorite):
       return {
         ...state,
-        gifIds: state.gifIds.filter(id => id !== action.gifId)
+        gifIds: state.gifIds.filter(id => id !== action.payload.gifId)
       }
 
-    case FETCH_FAVORITE_GIFS:
+    case getType(actions.fetchFavoriteGifs):
       return { ...state, fetching: true, error: null }
 
-    case SET_FAVORITE_GIFS:
-      return { ...state, fetching: false, error: null, data: action.data }
+    case getType(actions.setFavoriteGifs):
+      return { ...state, fetching: false, error: null, data: action.payload }
 
-    case ERROR_FAVORITE_GIFS:
-      return { ...state, fetching: false, error: action.error }
+    case getType(actions.setFavoriteGifsError):
+      return { ...state, fetching: false, error: action.payload }
 
-    case LOAD_FAVORITE_GIF_IDS:
-      return { ...state, gifIds: action.ids }
+    case getType(actions.loadFavoriteGifIds):
+      return { ...state, gifIds: action.payload }
 
     default:
       return state

@@ -1,44 +1,21 @@
 import { Gif } from "types/gif"
+import {
+  createAction,
+  createStandardAction,
+  ActionType
+} from "typesafe-actions"
 
-const FETCH_GIFS = "gifs/FETCH_GIFS"
-const SET_GIFS = "gifs/SET_GIFS"
-const ERROR_GIFS = "gifs/ERROR"
+const fetchGifs = createAction(
+  "gifs/FETCH_GIFS",
+  resolve => (searchTerm: string, page: number) => resolve({ searchTerm, page })
+)
+const setGifs = createAction(
+  "gifs/SET_GIFS",
+  resolve => (data: Gif[], total: number) => resolve({ data, total })
+)
+const setError = createStandardAction("gifs/ERROR")<string>()
 
-type GifsFetchAction = {
-  type: typeof FETCH_GIFS
-  searchTerm: string
-  page: number
-}
+const actions = { setGifs, setError, fetchGifs }
 
-type GifsSetAction = {
-  type: typeof SET_GIFS
-  data: Gif[]
-  total: number
-}
-
-type GifsErrorAction = {
-  type: typeof ERROR_GIFS
-  error: string
-}
-
-export type GifsAction = GifsFetchAction | GifsSetAction | GifsErrorAction
-
-const fetchGifs = (searchTerm: string, page: number): GifsFetchAction => ({
-  type: FETCH_GIFS,
-  searchTerm,
-  page
-})
-
-const setGifs = (data: Gif[], total: number): GifsSetAction => ({
-  type: SET_GIFS,
-  data,
-  total
-})
-
-const setError = (error: string): GifsErrorAction => ({
-  type: ERROR_GIFS,
-  error
-})
-
-export { SET_GIFS, ERROR_GIFS, FETCH_GIFS }
-export default { setGifs, setError, fetchGifs }
+export type GifsAction = ActionType<typeof actions>
+export default actions
