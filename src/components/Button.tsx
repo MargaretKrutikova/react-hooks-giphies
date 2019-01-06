@@ -8,8 +8,8 @@ const StyledButton = styled(ButtonBase)<Props>({
   padding: 10,
   backgroundColor: "#4554a0",
   color: "#fff",
-  minWidth: 100,
-  borderRadius: 4,
+  minWidth: 70,
+  borderRadius: 30,
   ":hover:enabled": {
     backgroundColor: "#36417d"
   },
