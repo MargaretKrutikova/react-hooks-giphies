@@ -6,6 +6,7 @@ import useInputValue from "hooks/useInputValue"
 import useDebounceEffect from "hooks/useDebounceEffect"
 
 import GifList from "components/GifList"
+import Spinner from "components/icons/Spinner"
 import Button from "components/Button"
 import SearchInput from "./SearchInput"
 
@@ -21,14 +22,25 @@ export type GifSearchProps = {
   goToPage: (page: number) => void
 }
 
+const Root = styled.div({
+  display: "flex",
+  position: "relative",
+  flexDirection: "column",
+  alignItems: "center"
+})
+
 const PagingContainer = styled.div({
   display: "flex",
-  justifyContent: "center",
-  marginBottom: 20
+  justifyContent: "center"
 })
 
 const PagingButton = styled(Button)({
   margin: "0 10px"
+})
+
+const SpinnerContainer = styled.div({
+  position: "absolute",
+  top: 65
 })
 
 const GifSearch: React.FunctionComponent<GifSearchProps> = props => {
@@ -52,10 +64,14 @@ const GifSearch: React.FunctionComponent<GifSearchProps> = props => {
   )
 
   return (
-    <div>
+    <Root>
       <SearchInput value={searchTerm} onChange={handleSearchChange} />
 
-      {fetching && <div>Loading...</div>}
+      {fetching && (
+        <SpinnerContainer>
+          <Spinner />
+        </SpinnerContainer>
+      )}
       {error && <div>Oooops... An error has occured!</div>}
 
       <GifList gifs={gifs} />
@@ -76,7 +92,7 @@ const GifSearch: React.FunctionComponent<GifSearchProps> = props => {
           </PagingButton>
         </PagingContainer>
       )}
-    </div>
+    </Root>
   )
 }
 
