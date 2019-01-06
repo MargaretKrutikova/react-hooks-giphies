@@ -8,6 +8,7 @@ import GifSearch from "components/GifSearch"
 import FavoriteGifs from "components/FavoriteGifs"
 import NotificationsProvider from "components/Notifications"
 import Header from "components/Header"
+import Global from "./GlobalStyles"
 
 const Main = styled.main({
   maxWidth: 1440,
@@ -27,7 +28,10 @@ const App: React.FunctionComponent = () => (
               <Route path="/favorites" exact component={FavoriteGifs} />
             </Switch>
           </Main>
+
           <NotificationsProvider />
+
+          <Global />
         </>
       </BrowserRouter>
     </StateProvider>
