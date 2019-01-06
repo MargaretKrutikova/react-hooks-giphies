@@ -30,11 +30,14 @@ const favoriteGifsReducer = (
         gifIds: [...state.gifIds, action.payload.gifId]
       }
 
-    case getType(actions.removeGifFromFavorite):
+    case getType(actions.removeGifFromFavorite): {
+      const gifIdToRemove = action.payload.gifId
       return {
         ...state,
-        gifIds: state.gifIds.filter(id => id !== action.payload.gifId)
+        data: state.data.filter(gif => gif.id !== gifIdToRemove),
+        gifIds: state.gifIds.filter(id => id !== gifIdToRemove)
       }
+    }
 
     case getType(actions.fetchFavoriteGifs):
       return { ...state, fetching: true, error: null }

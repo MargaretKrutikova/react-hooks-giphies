@@ -23,7 +23,7 @@ const GifCardContainer: React.FunctionComponent<GifCardOwnProps> = props => {
       if (isFavorite) {
         favoriteGifsEffects.removeFromFavorites(appState, dispatch, id)
       } else {
-        favoriteGifsEffects.addToFavorite(appState, dispatch, id)
+        favoriteGifsEffects.addToFavorites(appState, dispatch, id)
       }
     },
     [id, isFavorite]

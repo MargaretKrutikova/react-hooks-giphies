@@ -109,6 +109,6 @@ const fetchFavoriteGifs = async (
 export default {
   fetchFavoriteGifs,
   fetchFavoriteGifIds,
-  addToFavorite: addToFavorites,
+  addToFavorites,
   removeFromFavorites
 }
