@@ -11,7 +11,7 @@ import Header from "components/Header"
 
 const Main = styled.main({
   maxWidth: 1440,
-  paddingTop: 30,
+  padding: "30px 20px",
   margin: "0 auto"
 })
 

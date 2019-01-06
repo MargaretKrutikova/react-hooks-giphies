@@ -7,8 +7,7 @@ import useDebounceEffect from "hooks/useDebounceEffect"
 
 import GifList from "components/GifList"
 import Button from "components/Button"
-import Input from "components/Input"
-import SearchIcon from "components/SearchIcon"
+import SearchInput from "./SearchInput"
 
 const SEARCH_DEBOUNCE = 800
 
@@ -30,13 +29,6 @@ const PagingContainer = styled.div({
 
 const PagingButton = styled(Button)({
   margin: "0 10px"
-})
-
-const SearchInput = styled(Input)({
-  width: "40%",
-  margin: "0 auto",
-  marginBottom: 20,
-  fontSize: 28
 })
 
 const GifSearch: React.FunctionComponent<GifSearchProps> = props => {
@@ -61,12 +53,7 @@ const GifSearch: React.FunctionComponent<GifSearchProps> = props => {
 
   return (
     <div>
-      <SearchInput
-        type="text"
-        value={searchTerm}
-        onChange={handleSearchChange}
-        icon={<SearchIcon />}
-      />
+      <SearchInput value={searchTerm} onChange={handleSearchChange} />
 
       {fetching && <div>Loading...</div>}
       {error && <div>Oooops... An error has occured!</div>}
