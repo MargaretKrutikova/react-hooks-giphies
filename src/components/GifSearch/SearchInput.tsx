@@ -3,14 +3,14 @@ import styled from "@emotion/styled"
 
 import media from "utils/media"
 import Input from "components/Input"
-import SearchIcon from "components/SearchIcon"
+import SearchIcon from "components/icons/SearchIcon"
 
 type Props = React.HTMLProps<HTMLInputElement>
 
 const StyledSearchInput = styled(Input)({
   width: "40%",
   margin: "0 auto",
-  marginBottom: 20,
+  marginBottom: 60,
   fontSize: 28,
   [media.tabletPortraitAndSmaller]: {
     width: "70%"

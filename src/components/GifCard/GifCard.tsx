@@ -5,11 +5,12 @@ import useLoadingStatus from "hooks/useLoadingStatus"
 import { LoadingStatus, hasLoaded } from "types/loadingStatus"
 import { Gif } from "types/gif"
 import { defaultIfNaN } from "utils/number"
-
-import VideoPlaceholder from "../VideoPlaceholder"
-import FavoriteIcon from "../icons/FavoriteIcon"
 import { omitProps } from "utils/styling"
+
+import FavoriteIcon from "components/icons/FavoriteIcon"
 import IconButton from "components/IconButton"
+import ShareIcon from "components/icons/ShareIcon"
+import VideoPlaceholder from "../VideoPlaceholder"
 
 export type GifCardContextProps = {
   toggleFavorite: () => void
@@ -56,6 +57,10 @@ const ActionButton = styled(IconButton)({
   }
 })
 
+const ActionLink = styled.a({
+  display: "flex"
+})
+
 const GifCard: React.FunctionComponent<Props> = ({
   gif,
   className,
@@ -75,6 +80,12 @@ const GifCard: React.FunctionComponent<Props> = ({
       <Actions>
         <ActionButton>
           <FavoriteIcon isFavorite={isFavorite} onClick={toggleFavorite} />
+        </ActionButton>
+
+        <ActionButton>
+          <ActionLink href={gif.embed_url} target="blank">
+            <ShareIcon />
+          </ActionLink>
         </ActionButton>
       </Actions>
 

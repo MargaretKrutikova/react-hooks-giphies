@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "@emotion/styled"
 
 import { LoadingStatus, hasLoaded, isLoading } from "types/loadingStatus"
-import Spinner from "./Spinner"
+import Spinner from "./icons/Spinner"
 import { omitProps } from "utils/styling"
 
 type Props = {
