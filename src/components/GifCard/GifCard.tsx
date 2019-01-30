@@ -36,7 +36,7 @@ type VideoContainerProps = {
 const VideoContainer = styled("div", omitProps<VideoContainerProps>("width"))<
   VideoContainerProps
 >(({ width }) => ({
-  width,
+  // width,
   position: "relative"
 }))
 

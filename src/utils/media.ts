@@ -1,4 +1,4 @@
-enum Breakpoint {
+export enum Breakpoint {
   PhoneMax = 599,
   TablePortraitMin = 600,
   TablePortraitMax = 899,

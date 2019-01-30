@@ -16,7 +16,7 @@ export const initialState: GifsState = {
   data: [],
   total: 0,
   searchTerm: "",
-  limit: 6,
+  limit: 20,
   page: 1,
   fetching: false
 }
@@ -28,7 +28,14 @@ const gifsReducer = (
   switch (action.type) {
     case getType(actions.fetchGifs): {
       const { searchTerm, page } = action.payload
-      return { ...state, searchTerm, page, fetching: true, error: null }
+      return {
+        ...state,
+        searchTerm,
+        page,
+        data: [],
+        fetching: true,
+        error: null
+      }
     }
 
     case getType(actions.setGifs): {
@@ -38,7 +45,7 @@ const gifsReducer = (
         ...state,
         fetching: false,
         error: null,
-        data,
+        data: state.data.concat(data),
         total
       }
     }
