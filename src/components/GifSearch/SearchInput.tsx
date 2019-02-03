@@ -21,7 +21,11 @@ const StyledSearchInput = styled(Input)({
 })
 
 const SearchInput: React.FunctionComponent<Props> = props => (
-  <StyledSearchInput type="text" icon={<SearchIcon />} {...props} />
+  <StyledSearchInput
+    type="text"
+    icon={<SearchIcon fontSize="large" />}
+    {...props}
+  />
 )
 
 export default SearchInput

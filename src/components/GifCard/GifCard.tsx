@@ -5,7 +5,6 @@ import useLoadingStatus from "hooks/useLoadingStatus"
 import { LoadingStatus, hasLoaded } from "types/loadingStatus"
 import { Gif } from "types/gif"
 import { defaultIfNaN } from "utils/number"
-import { omitProps } from "utils/styling"
 
 import FavoriteIcon from "components/icons/FavoriteIcon"
 import IconButton from "components/IconButton"
@@ -30,20 +29,14 @@ const Video = styled.video<{ status: LoadingStatus }>(({ status }) => ({
   display: hasLoaded(status) ? "block" : "none"
 }))
 
-type VideoContainerProps = {
-  width: number
-}
-const VideoContainer = styled("div", omitProps<VideoContainerProps>("width"))<
-  VideoContainerProps
->(({ width }) => ({
-  // width,
+const VideoContainer = styled.div({
   position: "relative"
-}))
+})
 
 const Actions = styled.div({
   position: "absolute",
-  top: 10,
-  right: 10,
+  top: 5,
+  right: 5,
   zIndex: 2,
   width: "100%",
   display: "flex",
@@ -54,6 +47,9 @@ const ActionButton = styled(IconButton)({
   backgroundColor: "rgba(255, 255, 255, 0.7)",
   ":hover:enabled": {
     backgroundColor: "rgba(255, 255, 255, 0.8)"
+  },
+  "& + &": {
+    marginLeft: 5
   }
 })
 
@@ -76,7 +72,7 @@ const GifCard: React.FunctionComponent<Props> = ({
   const src = original.mp4 || ""
 
   return (
-    <VideoContainer width={width} className={className}>
+    <VideoContainer className={className}>
       <Actions>
         <ActionButton>
           <FavoriteIcon isFavorite={isFavorite} onClick={toggleFavorite} />

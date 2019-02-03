@@ -1,7 +1,10 @@
 import * as React from "react"
+import SvgIcon, { SvgIconProps } from "./SvgIcon"
 
-const SearchIcon: React.FunctionComponent<{}> = () => (
-  <svg viewBox="0 0 48 48" width={36} height={36}>
+type Props = SvgIconProps
+
+const SearchIcon: React.FunctionComponent<Props> = props => (
+  <SvgIcon viewBox="0 0 48 48" {...props}>
     <g>
       <path
         fill="#616161"
@@ -24,7 +27,7 @@ const SearchIcon: React.FunctionComponent<{}> = () => (
         d="M 26.898438 14.199219 C 25.199219 12.199219 22.699219 11 20 11 C 17.300781 11 14.800781 12.199219 13.101563 14.199219 C 12.699219 14.601563 12.800781 15.300781 13.199219 15.601563 C 13.601563 16 14.300781 15.898438 14.601563 15.5 C 16 13.898438 17.898438 13 20 13 C 22.101563 13 24 13.898438 25.398438 15.5 C 25.601563 15.699219 25.898438 15.898438 26.199219 15.898438 C 26.398438 15.898438 26.699219 15.800781 26.800781 15.699219 C 27.199219 15.300781 27.199219 14.601563 26.898438 14.199219 Z "
       />
     </g>
-  </svg>
+  </SvgIcon>
 )
 
 export default SearchIcon
