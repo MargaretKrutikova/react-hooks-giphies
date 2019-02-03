@@ -13,6 +13,7 @@ type Props = {
 
 const GifListItem = styled(GifCard)({
   margin: 10,
+  maxWidth: 380,
   [media.phoneOnly]: {
     margin: 5
   }
@@ -23,7 +24,6 @@ const GifList: React.FunctionComponent<Props> = ({ gifs }) => (
     getChildKeyByIndex={(ind: number) => gifs[ind].id}
     gridGap={10}
     colWidth={280}
-    maxWidth={350}
   >
     {gifs.map(gif => (
       <GifListItem key={gif.slug} gif={gif} />
