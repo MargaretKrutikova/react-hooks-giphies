@@ -20,7 +20,7 @@ const fetch = async (
       offset
     )
 
-    dispatch(actions.setGifs(data, pagination.total_count))
+    dispatch(actions.setGifs(data, pagination.total_count, pagination.offset))
   } catch (error) {
     actions.setError(error.toString())
   }

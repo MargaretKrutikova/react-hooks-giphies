@@ -1,41 +1,34 @@
 import * as React from "react"
 import styled from "@emotion/styled"
 
-import media from "utils/media"
 import { Gif } from "types/gif"
+import media from "utils/media"
 
 import GifCard from "./GifCard"
+import Masonry from "./Masonry"
 
 type Props = {
   gifs: Gif[]
 }
 
-const List = styled.div({
-  display: "inline-flex",
-  flexWrap: "wrap",
-  justifyContent: "space-evenly",
-  alignItems: "center",
-  width: "100%"
-})
-
 const GifListItem = styled(GifCard)({
-  maxWidth: "30%",
-  padding: 10,
-  marginBottom: 20,
-  [media.tabletPortraitAndSmaller]: {
-    maxWidth: "45%"
-  },
+  margin: 10,
+  maxWidth: 380,
   [media.phoneOnly]: {
-    maxWidth: "100%"
+    margin: 5
   }
 })
 
 const GifList: React.FunctionComponent<Props> = ({ gifs }) => (
-  <List>
+  <Masonry
+    getChildKeyByIndex={(ind: number) => gifs[ind].id}
+    gridGap={10}
+    colWidth={280}
+  >
     {gifs.map(gif => (
       <GifListItem key={gif.slug} gif={gif} />
     ))}
-  </List>
+  </Masonry>
 )
 
 export default GifList

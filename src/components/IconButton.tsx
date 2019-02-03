@@ -1,10 +1,11 @@
 import * as React from "react"
 import styled from "@emotion/styled"
+
 import ButtonBase from "./BaseButton"
 
 const StyledIconButton = styled(ButtonBase)({
   borderRadius: "50%",
-  padding: 6,
+  padding: 3,
   display: "flex",
   backgroundColor: "transparent",
   color: "#fff",

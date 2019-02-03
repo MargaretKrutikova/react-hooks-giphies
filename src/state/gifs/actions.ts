@@ -11,7 +11,8 @@ const fetchGifs = createAction(
 )
 const setGifs = createAction(
   "gifs/SET_GIFS",
-  resolve => (data: Gif[], total: number) => resolve({ data, total })
+  resolve => (data: Gif[], total: number, offset: number) =>
+    resolve({ data, total, offset })
 )
 const setError = createStandardAction("gifs/ERROR")<string>()
 
