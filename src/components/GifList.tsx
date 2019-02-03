@@ -23,6 +23,7 @@ const GifList: React.FunctionComponent<Props> = ({ gifs }) => (
     getChildKeyByIndex={(ind: number) => gifs[ind].id}
     gridGap={10}
     colWidth={280}
+    maxWidth={350}
   >
     {gifs.map(gif => (
       <GifListItem key={gif.slug} gif={gif} />

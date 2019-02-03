@@ -9,20 +9,26 @@ type ParentProps = {
   gridGap: number
   colWidth: number
   rowHeight: number
+  maxWidth?: number
 }
-const Parent = styled.div<ParentProps>(({ colWidth, rowHeight, gridGap }) => ({
-  width: "100%",
-  display: "grid",
-  gridTemplateColumns: `repeat(auto-fit, minmax(${colWidth}px, 1fr))`,
-  gridAutoRows: `calc(${rowHeight}px - ${gridGap}px)`,
-  gridGap: `${gridGap}px`,
-  [media.tabletLandscapeAndSmaller]: {
-    gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))`
-  },
-  [media.phoneOnly]: {
-    gridTemplateColumns: `repeat(auto-fit, minmax(150px, 1fr))`
-  }
-}))
+
+const Parent = styled.div<ParentProps>(
+  ({ colWidth, rowHeight, gridGap, maxWidth }) => ({
+    width: "100%",
+    display: "grid",
+    gridTemplateColumns: `repeat(auto-fit, minmax(${colWidth}px, ${
+      maxWidth ? `${maxWidth}px` : "1fr"
+    }))`,
+    gridAutoRows: `calc(${rowHeight}px - ${gridGap}px)`,
+    gridGap: `${gridGap}px`,
+    [media.tabletLandscapeAndSmaller]: {
+      gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))`
+    },
+    [media.phoneOnly]: {
+      gridTemplateColumns: `repeat(auto-fit, minmax(150px, 1fr))`
+    }
+  })
+)
 
 const Child = styled.div<{ span: number }>(({ span }) => ({
   gridRow: `span ${span}`,
@@ -33,6 +39,7 @@ type Props = {
   rowHeight?: number
   colWidth: number
   gridGap?: number
+  maxWidth?: number
   getChildKeyByIndex: (index: number) => string
 }
 
@@ -42,6 +49,7 @@ const Masonry: React.FunctionComponent<Props> = ({
   colWidth,
   rowHeight = 10,
   gridGap = 20,
+  maxWidth,
   children,
   getChildKeyByIndex
 }) => {
@@ -74,6 +82,7 @@ const Masonry: React.FunctionComponent<Props> = ({
       colWidth={colWidth}
       rowHeight={rowHeight}
       gridGap={gridGap}
+      maxWidth={maxWidth}
     >
       {React.Children.map(children, (child, index: number) => {
         const key = getChildKeyByIndex(index)
