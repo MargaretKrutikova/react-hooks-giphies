@@ -8,9 +8,9 @@ const rootEl = document.getElementById("root")
 ReactDOM.render(<App />, rootEl)
 registerServiceWorker()
 
-// if (module.hot) {
-//   module.hot.accept("components/App", () => {
-//     const NextApp = require("components/App").default
-//     ReactDOM.render(<NextApp />, rootEl)
-//   })
-// }
+if (module.hot) {
+  module.hot.accept("components/App", () => {
+    const NextApp = require("components/App").default
+    ReactDOM.render(<NextApp />, rootEl)
+  })
+}
