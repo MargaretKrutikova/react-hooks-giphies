@@ -32,20 +32,19 @@ const gifsReducer = (
         ...state,
         searchTerm,
         page,
-        data: [],
         fetching: true,
         error: null
       }
     }
 
     case getType(actions.setGifs): {
-      const { data, total } = action.payload
+      const { data, total, offset } = action.payload
 
       return {
         ...state,
         fetching: false,
         error: null,
-        data: state.data.concat(data),
+        data: offset === 0 ? data : state.data.concat(data),
         total
       }
     }

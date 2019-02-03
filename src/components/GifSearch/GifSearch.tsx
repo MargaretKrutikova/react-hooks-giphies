@@ -29,15 +29,6 @@ const Root = styled.div({
   alignItems: "center"
 })
 
-const PagingContainer = styled.div({
-  display: "flex",
-  justifyContent: "center"
-})
-
-const PagingButton = styled(Button)({
-  margin: "0 10px"
-})
-
 const SpinnerContainer = styled.div({
   position: "absolute",
   top: 65
@@ -77,20 +68,12 @@ const GifSearch: React.FunctionComponent<GifSearchProps> = props => {
       <GifList gifs={gifs} />
 
       {gifs.length > 0 && (
-        <PagingContainer>
-          <PagingButton
-            disabled={currentPage === 1}
-            onClick={() => goToPage(currentPage - 1)}
-          >
-            Previous
-          </PagingButton>
-          <PagingButton
-            disabled={!hasMorePages}
-            onClick={() => goToPage(currentPage + 1)}
-          >
-            Next
-          </PagingButton>
-        </PagingContainer>
+        <Button
+          disabled={!hasMorePages}
+          onClick={() => goToPage(currentPage + 1)}
+        >
+          Load more
+        </Button>
       )}
     </Root>
   )
